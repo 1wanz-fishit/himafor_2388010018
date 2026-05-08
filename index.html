@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIMAFOR - Mahakarya Informatika & Budaya</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Menggunakan font klasik untuk judul (Cinzel) dan elegan untuk body (Poppins & Lora) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Palet Warna Tradisional/Nusantara */
+            --bg-color: #150e0a; /* Cokelat Kayu Gelap */
+            --bg-lighter: #261912;
+            --primary-color: #d4af37; /* Emas Klasik */
+            --primary-dark: #b5952f;
+            --secondary-color: #7b1113; /* Merah Marun / Merah Hati */
+            --text-color: #f4e8d3; /* Krem / Kertas Kuno */
+            --text-muted: #d0c2ad;
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Poppins', sans-serif;
+            --font-accent: 'Lora', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            /* Latar belakang pattern Batik */
+            background-image: 
+                linear-gradient(rgba(21, 14, 10, 0.9), rgba(21, 14, 10, 0.95)),
+                url('https://images.unsplash.com/photo-1596401057658-3e545610bc1a?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* Custom Scrollbar Klasik */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-left: 1px solid var(--secondary-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border: 2px solid var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(21, 14, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links li a::after {
+            content: '❖';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            color: var(--primary-color);
+            transition: 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links li a:hover::after {
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            background: 
+                linear-gradient(to bottom, rgba(21, 14, 10, 0.6), rgba(21, 14, 10, 1)),
+                url('https://images.unsplash.com/photo-1555921015-5532091f6026?q=80&w=2070&auto=format&fit=crop'); /* Gambar Pura/Budaya Nusantara */
+            background-size: cover;
+            background-position: center;
+            border-bottom: 5px solid var(--secondary-color);
+        }
+
+        /* Ornamen overlay tipis */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23d4af37" opacity="0.2"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            font-family: var(--font-accent);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            border-top: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            padding: 5px 20px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.3);
+            line-height: 1.2;
+            z-index: 1;
+        }
+        
+        .hero h1 span {
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-family: var(--font-accent);
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin-bottom: 50px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            z-index: 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 40px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--bg-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            position: relative;
+            text-decoration: none;
+            transition: 0.4s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid rgba(21, 14, 10, 0.3);
+            pointer-events: none;
+        }
+
+        .btn:hover {
+            background: var(--bg-color);
+            color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Sections Global */
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .ornament-top {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            position: relative;
+            letter-spacing: 3px;
+        }
+
+        .section-title span {
+            color: var(--text-color);
+        }
+
+        .section-title::after {
+            content: '♦ ♦ ♦';
+            display: block;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-top: 15px;
+            letter-spacing: 10px;
+        }
+
+        /* Filosofi / About Section */
+        .about-container {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            background: var(--bg-lighter);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-img {
+            flex: 1;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(40%) contrast(110%) brightness(0.9);
+            border-right: 5px solid var(--secondary-color);
+        }
+
+        .about-text {
+            flex: 1.2;
+            padding: 60px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Tekstur kertas/batu halus */
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+        }
+
+        .about-text h3 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-family: var(--font-accent);
+        }
+
+        .highlight-text {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-family: var(--font-body);
+        }
+
+        /* Budaya (Reog & Burok) Section */
+        .culture-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .culture-card {
+            background: rgba(38, 25, 18, 0.8);
+            border: 1px solid var(--primary-dark);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: 0.4s;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Ornamen Sudut */
+        .culture-card::before, .culture-card::after {
+            content: '';
+            position: absolute;
+            width: 30px; height: 30px;
+            border: 2px solid var(--primary-color);
+            transition: 0.4s;
+        }
+        .culture-card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .culture-card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .culture-card:hover {
+            transform: translateY(-10px);
+            background: rgba(38, 25, 18, 1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+            border-color: var(--primary-color);
+        }
+
+        .culture-card:hover::before { top: 5px; left: 5px; }
+        .culture-card:hover::after { bottom: 5px; right: 5px; }
+
+        .culture-img {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+            padding: 5px;
+            object-fit: cover;
+            filter: sepia(30%) contrast(110%);
+            transition: 0.4s;
+            background-color: var(--bg-color);
+        }
+
+        .culture-card:hover .culture-img {
+            border-color: var(--primary-color);
+            filter: sepia(0%);
+            transform: scale(1.05);
+        }
+
+        .culture-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .culture-card p {
+            font-family: var(--font-accent);
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Visi Misi Section */
+        .quests-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .quest-card {
+            background: var(--bg-lighter);
+            border-top: 4px solid var(--secondary-color);
+            padding: 40px 30px;
+            position: relative;
+            transition: 0.4s;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .quest-card::before {
+            content: '❖';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-color);
+            color: var(--primary-color);
+            width: 40px; height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--secondary-color);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .quest-card:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--primary-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .quest-card:hover::before {
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            background: var(--secondary-color);
+        }
+
+        .quest-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .quest-card p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-family: var(--font-accent);
+        }
+
+        /* Divisi Section */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .class-card {
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+            padding: 50px 30px;
+            position: relative;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .class-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: 0.4s ease-in-out;
+        }
+
+        .class-card:hover::after {
+            width: 80%;
+        }
+
+        .class-card:hover {
+            background: rgba(123, 17, 19, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .class-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            transition: 0.4s;
+        }
+
+        .class-card:hover .class-icon {
+            transform: scale(1.1);
+            color: var(--text-color);
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .class-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .class-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            font-family: var(--font-accent);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0604;
+            padding: 60px 5% 30px;
+            text-align: center;
+            border-top: 5px solid var(--secondary-color);
+            position: relative;
+            /* Subtle ornament background */
+            background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L40 20L20 40L0 20L20 0Z" fill="%23d4af37" opacity="0.03"/></svg>');
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .footer-logo span {
+            color: var(--text-color);
+        }
+
+        .footer-tagline {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            font-family: var(--font-accent);
+            font-style: italic;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .footer-social a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            background: transparent;
+        }
+
+        .footer-social a:hover {
+            color: var(--bg-color);
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .copyright {
+            color: #888;
+            font-size: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 20px;
+            font-family: var(--font-body);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-container { flex-direction: column; }
+            .about-img { min-height: 300px; border-right: none; border-bottom: 5px solid var(--secondary-color); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .section-title { font-size: 2.2rem; }
+            .about-text { padding: 40px 20px; }
+            .culture-showcase { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">HIMA<span>FOR</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#filosofi">Filosofi</a></li>
+            <li><a href="#budaya">Karsa Budaya</a></li>
+            <li><a href="#visi">Visi Misi</a></li>
+            <li><a href="#divisi">Divisi</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-badge">Informatika & Mahakarya</div>
+        <h1>Harmoni <span>Teknologi</span><br>& Tradisi</h1>
+        <p>Himpunan Mahasiswa Informatika - Mengadaptasi ketangguhan seni Reog dan kelincahan Burok dalam menghadapi era digital, melestarikan budaya bangsa sembari terus berinovasi tiada henti.</p>
+        <a href="#filosofi" class="btn">Jelajahi Karsa <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+    </header>
+
+    <!-- Filosofi / About Section -->
+    <section id="filosofi">
+        <div class="ornament-top">❖</div>
+        <h2 class="section-title">Filosofi <span>Himpunan</span></h2>
+        <div class="about-container">
+            <div class="about-img">
+                <!-- CDN Image Unsplash bernuansa tradisional/Bali/Jawa -->
+                <img src="https://images.unsplash.com/photo-1531682121983-2074f7626fc7?q=80&w=2070&auto=format&fit=crop" alt="Budaya Nusantara">
+            </div>
+            <div class="about-text">
+                <h3>Warisan & Inovasi</h3>
+                <p>HIMAFOR (Himpunan Mahasiswa Informatika) berdiri tegak di atas dua pilar utama: <span class="highlight-text">Kecanggihan Teknologi</span> dan <span class="highlight-text">Keluhuran Budaya Nusantara</span>. Kami menolak pandangan bahwa kemajuan teknologi harus meminggirkan tradisi.</p>
+                <p>Layaknya para pemahat candi masa lampau yang bekerja dengan presisi dan dedikasi, mahasiswa Informatika merangkai baris kode untuk membangun peradaban digital yang tetap berakar pada identitas bangsa. Kami adalah wadah kolaborasi, kreasi, dan pelestarian nilai luhur melalui media teknologi terkini.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Budaya (Reog & Burok) Section -->
+    <section id="budaya">
+        <div class="ornament-top">❖</div>
+        <h2 class="section-title">Karsa <span>Budaya</span></h2>
+        <p style="text-align: center; font-family: var(--font-accent); color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin: 0 auto;">Sebagai sumber inspirasi utama pergerakan himpunan, kami mengadopsi semangat juang dan nilai-nilai agung dari kesenian tradisional kesayangan masyarakat.</p>
+        
+        <div class="culture-showcase">
+            <!-- Reog Ponorogo -->
+            <div class="culture-card">
+                <!-- Gambar Reog Ponorogo dari Wikimedia Commons (Public Domain/CC) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Reog_Ponorogo_di_Jakarta.jpg/800px-Reog_Ponorogo_di_Jakarta.jpg" alt="Seni Reog Ponorogo" class="culture-img">
+                <h4>Ketangguhan Reog</h4>
+                <p>Mengambil filosofi dari keperkasaan Singo Barong dalam kesenian <b>Reog Ponorogo</b> yang melambangkan kekuatan, keberanian, dan kewibawaan. Anggota HIMAFOR dituntut untuk tangguh menghadapi tantangan sistem, kokoh dalam logika pemrograman, dan berani mengambil keputusan inovatif di tengah krisis.</p>
+            </div>
+            
+            <!-- Burok Cirebon -->
+            <div class="culture-card">
+                <!-- Gambar Kesenian Burok (Atau proxy budaya ekuivalen) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Burok_Cirebon.jpg/800px-Burok_Cirebon.jpg" alt="Seni Burok Cirebon" class="culture-img" onerror="this.src='https://images.unsplash.com/photo-1590005176489-db2e714711fc?q=80&w=600&auto=format&fit=crop'">
+                <h4>Kelincahan Burok</h4>
+                <p>Terinspirasi dari seni <b>Burok</b> yang populer di pesisir Pantura, yang melambangkan kecepatan, kelincahan, serta pembawa kegembiraan. Burok mengajarkan kami untuk selalu adaptif, bergerak cepat mempelajari bahasa pemrograman baru, dan menciptakan karya IT yang membawa manfaat serta keceriaan bagi masyarakat luas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visi Misi Section -->
+    <section id="visi">
+        <div class="ornament-top">❖</div>
+        <h2 class="section-title">Visi <span>& Misi</span></h2>
+        <div class="quests-container">
+            <div class="quest-card">
+                <h3>Visi Utama</h3>
+                <p>Menjadi pusat peradaban mahasiswa Informatika yang unggul dalam ilmu pengetahuan dan teknologi, berkarakter luhur, berlandaskan nilai-nilai budaya bangsa, serta mampu bersaing di kancah global.</p>
+            </div>
+            <div class="quest-card">
+                <h3>Karsa Cipta</h3>
+                <p>Mengembangkan potensi akademik dan keterampilan teknis anggota di bidang rekayasa perangkat lunak, kecerdasan buatan, dan infrastruktur IT melalui program pelatihan berbasis proyek nyata.</p>
+            </div>
+            <div class="quest-card">
+                <h3>Karsa Rasa</h3>
+                <p>Mempererat tali persaudaraan antar mahasiswa dengan menjunjung tinggi nilai gotong royong, tepa selira, dan pelestarian kearifan lokal dalam setiap kegiatan himpunan.</p>
+            </div>
+            <div class="quest-card">
+                <h3>Karsa Karya</h3>
+                <p>Berkontribusi secara nyata kepada kemajuan masyarakat dengan mengimplementasikan solusi teknologi informasi yang inovatif, aman, dan memegang teguh etika ketimuran.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divisi Section -->
+    <section id="divisi">
+        <div class="ornament-top">❖</div>
+        <h2 class="section-title">Pilar <span>Divisi</span></h2>
+        <div class="classes-grid">
+            <div class="class-card">
+                <i class="fas fa-laptop-code class-icon"></i>
+                <h3>Rekayasa Perangkat Lunak</h3>
+                <p>Para pengrajin digital. Berfokus pada arsitektur sistem, pengembangan website, dan aplikasi yang dibangun dengan ketelitian layaknya memahat sebuah candi.</p>
+            </div>
+            <div class="class-card">
+                <i class="fas fa-project-diagram class-icon"></i>
+                <h3>Infrastruktur & Jaringan</h3>
+                <p>Para penjaga gerbang maya. Mengelola alur komunikasi data, merajut keamanan siber, dan memastikan fondasi sistem himpunan berdiri kokoh tanpa celah.</p>
+            </div>
+            <div class="class-card">
+                <i class="fas fa-palette class-icon"></i>
+                <h3>Multimedia & Desain</h3>
+                <p>Para seniman visual. Mewujudkan keindahan motif budaya ke dalam antarmuka digital (UI/UX) dan menciptakan karya visual kreatif yang menginspirasi.</p>
+            </div>
+            <div class="class-card">
+                <i class="fas fa-users class-icon"></i>
+                <h3>Hubungan Masyarakat</h3>
+                <p>Para duta himpunan. Menjalin tali silaturahmi, merawat komunikasi antar lembaga, dan menjadi wajah utama HIMAFOR di mata masyarakat dan industri.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">HIMA<span>FOR</span></div>
+        <div class="footer-tagline">"Melestarikan Tradisi, Menginovasi Teknologi"</div>
+        <div class="footer-social">
+            <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+            © 2026 Himpunan Mahasiswa Informatika. Dipersembahkan dengan Cipta, Rasa, dan Karsa.
+        </div>
+    </footer>
+
+</body>
+</html>
