@@ -34,5 +34,5 @@ jobs:
         port: 22
         script: |
           docker rm -f himafor_2388010018 || true
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/h :latest
-          docker run -d --name hi  -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/himafor_2388010018:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/himafor_2388010018:latest
+          docker run -d --name himafor_2388010018 -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/himafor_2388010018:latest
