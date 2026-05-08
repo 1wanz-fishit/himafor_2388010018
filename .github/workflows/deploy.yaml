@@ -1,4 +1,4 @@
-name : Deploy Web static to AWS EC2
+name: Deploy Web Static to AWS EC2
 
 on:
   push:
@@ -33,7 +33,6 @@ jobs:
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           port: 22
           script: |
-          docker stop himafor_2388010018 || true
-          docker rm -f himafor_2388010018 || true
+          docker rm -f himafor_2388010018 || true 
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/himafor_2388010018:latest
           docker run -d --name himafor_2388010018 -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/himafor_2388010018:latest
